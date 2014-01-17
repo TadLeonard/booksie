@@ -6,8 +6,6 @@ from booksie.log import logging
 
 
 logger = logging.getLogger("gutenget")
-logger.info("HEY")
-logger.critical("HEY")
 
 
 _rehref = re.compile("href=\"\/ebooks\/([0-9]{5})\"")
