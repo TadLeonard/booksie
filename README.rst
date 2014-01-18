@@ -9,7 +9,7 @@ Examples
 
 Generate random sentences from some text
 
-..code-block python::
+.. code-block:: python
 
     from booksie.book import Book
     shake = Book(open("speare.txt").read())
@@ -22,7 +22,7 @@ Generate random sentences from some text
 
 Get a single random sentence from some text
 
-..code-block python::
+.. code-block:: python
 
     form booksie.book import Book
     shake = Book(
