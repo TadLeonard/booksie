@@ -10,6 +10,7 @@ _abbreviations = "Mr.", "Mrs.", "Dr.", "Ms.", "Prof."
 
 
 class Book:
+    max_iteration = 1000000
 
     def __init__(self, text=None, path=None):
         self.path = path
@@ -33,25 +34,24 @@ class Book:
             self.num_sentences = len(self._sentences)
         return self._sentences
 
-    def gen_random_sentences(self, no_more_than=1000000):
+    def gen_random_sentences(self, min_words=3, max_words=10000):
         sentences = self.sentences
         max_index = self.num_sentences - 1
-        for _ in xrange(no_more_than):
+        for _ in xrange(self.max_iteration):
             i = random.randint(0, max_index)
-            yield sentences[i]
-
-    def get_random_sentence(self, min_words=3, max_words=1000):
-        for sentence in self.gen_random_sentences():
+            sentence = sentences[i]
             words = _rewhite.split(sentence)
             words = filter(None, map(_rewhitesub, words))
-            if min_words > len(words) > max_words:
+            lenwords = len(words)
+            if lenwords < min_words or lenwords > max_words:
                 continue
             elif words[-1] in _abbreviations:
                 continue
             else:   
-                return " ".join(words)
-        raise Exception("Couldn't find a sentence between {0} and {1} words long".format(   
-                        min_words, max_words))
+                yield " ".join(words)
+
+    def get_random_sentence(self, min_words=3, max_words=10000):
+        return self.gen_random_sentences(min_words, max_words).next()
 
 
 def _split_sentences(text):

@@ -17,5 +17,9 @@ print
 
 
 book = Book(text=text)
-while True:
-    raw_input(book.get_random_sentence())
+sentences = book.gen_random_sentences(2, 30)
+for sentence in sentences:
+    try:
+        raw_input(sentence)
+    except KeyboardInterrupt:
+        break
